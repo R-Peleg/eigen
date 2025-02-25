@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import * as math from 'mathjs';
+import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 
 function App() {
   const [size, setSize] = useState(2);
@@ -21,6 +22,25 @@ function App() {
     const newMatrix = [...matrix];
     newMatrix[row][col] = parseFloat(value) || 0;
     setMatrix(newMatrix);
+  };
+
+  // Calculate eigenvalues
+  const calculateEigenvalues = (mat) => {
+    try {
+      const eigs = math.eigs(mat);
+      return eigs.values.map(value => ({
+        x: math.re(value), // Real part
+        y: math.im(value), // Imaginary part
+      }));
+    } catch (error) {
+      console.error('Error calculating eigenvalues:', error);
+      return [];
+    }
+  };
+
+  // Calculate trace (sum of diagonal elements)
+  const calculateTrace = (mat) => {
+    return mat.reduce((sum, row, index) => sum + row[index], 0);
   };
 
   return (
@@ -51,10 +71,54 @@ function App() {
           </div>
         </div>
         <div className="result-section">
-          <h2>Determinant:</h2>
-          <div className="determinant">
-            {calculateDeterminant(matrix)}
+          <div className="matrix-properties">
+            <div className="property">
+              <h3>Determinant:</h3>
+              <div className="value">
+                {calculateDeterminant(matrix)}
+              </div>
+            </div>
+            <div className="property">
+              <h3>Trace:</h3>
+              <div className="value">
+                {calculateTrace(matrix)}
+              </div>
+            </div>
           </div>
+        </div>
+        <div className="eigenvalue-plot">
+          <h2>Eigenvalues Plot</h2>
+          <ScatterChart
+            width={400}
+            height={400}
+            margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
+          >
+            <CartesianGrid />
+            <XAxis 
+              type="number" 
+              dataKey="x" 
+              name="Real" 
+              label={{ value: "Real Part", position: "bottom" }}
+              domain={['auto', 'auto']}
+            />
+            <YAxis 
+              type="number" 
+              dataKey="y" 
+              name="Imaginary" 
+              label={{ value: "Imaginary Part", angle: -90, position: "left" }}
+              domain={['auto', 'auto']}
+            />
+            <Tooltip 
+              formatter={(value) => value.toFixed(3)}
+              labelFormatter={() => 'Eigenvalue'}
+            />
+            <Scatter 
+              name="Eigenvalues" 
+              data={calculateEigenvalues(matrix)} 
+              fill="#8884d8"
+              shape="circle"
+            />
+          </ScatterChart>
         </div>
       </div>
     </div>
