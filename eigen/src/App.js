@@ -43,6 +43,22 @@ function App() {
     return mat.reduce((sum, row, index) => sum + row[index], 0);
   };
 
+
+  // Format individual eigenvalue
+  const formatEigenvalue = (eig) => {
+    const real = math.round(eig.x || 0, 6);
+    const imag = math.round(eig.y || 0, 6);
+    if (math.abs(imag) < 1e-10) return `${real}`;
+    return `${real} ${imag >= 0 ? '+' : ''}${imag}i`;
+  };
+
+  // Format eigenvalue sum expression
+  const formatEigenvalueSum = (eigenvalues) => {
+    if (!eigenvalues || eigenvalues.length === 0) return 'N/A';
+    const formattedValues = eigenvalues.map(formatEigenvalue);
+    return formattedValues.join(' + ');
+  };
+
   return (
     <div className="app">
       <div className="container">
@@ -82,6 +98,15 @@ function App() {
               <h3>Trace:</h3>
               <div className="value">
                 {calculateTrace(matrix)}
+              </div>
+            </div>
+            <div className="property">
+              <h3>Trace = Sum of Eigenvalues</h3>
+              <div className="value">
+                {calculateTrace(matrix)} = {formatEigenvalueSum(calculateEigenvalues(matrix))}
+              </div>
+              <div className="theorem-note">
+                This demonstrates the theorem: tr(A) = λ₁ + λ₂ + ... + λₙ
               </div>
             </div>
           </div>
