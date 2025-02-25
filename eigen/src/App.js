@@ -1,36 +1,13 @@
 import React, { useState } from 'react';
 import './App.css';
+import * as math from 'mathjs';
 
 function App() {
   const [size, setSize] = useState(2);
   const [matrix, setMatrix] = useState(Array(2).fill().map(() => Array(2).fill(0)));
 
   // Calculate determinant using recursive method
-  const calculateDeterminant = (mat) => {
-    if (mat.length === 1) return mat[0][0];
-    if (mat.length === 2) {
-      return mat[0][0] * mat[1][1] - mat[0][1] * mat[1][0];
-    }
-
-    let det = 0;
-    for (let i = 0; i < mat.length; i++) {
-      det += Math.pow(-1, i) * mat[0][i] * calculateDeterminant(getCofactor(mat, 0, i));
-    }
-    return det;
-  };
-
-  // Get cofactor matrix
-  const getCofactor = (mat, row, col) => {
-    const subMatrix = [];
-    for (let i = 1; i < mat.length; i++) {
-      const tempRow = [];
-      for (let j = 0; j < mat.length; j++) {
-        if (j !== col) tempRow.push(mat[i][j]);
-      }
-      subMatrix.push(tempRow);
-    }
-    return subMatrix;
-  };
+  const calculateDeterminant = (mat) => math.det(mat);
 
   // Handle matrix size change
   const handleSizeChange = (e) => {
