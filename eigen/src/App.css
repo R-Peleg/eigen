@@ -1,64 +1,158 @@
 .app {
-  padding: 20px;
+  width: 100%;
+  min-height: 100vh;
+  padding: 10px;
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
 }
 
 .container {
+  width: 100%;
+  max-width: 800px;
+  padding: 0;
   display: flex;
-  gap: 2rem;
-  padding: 2rem;
+  flex-direction: column;
+  gap: 1.5rem;
+  overflow-x: hidden;
 }
 
 .matrix-section {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  width: 100%;
+  overflow-x: auto;
+  padding: 1rem 0;
 }
 
 .size-selector {
-  margin-bottom: 10px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.size-selector select {
+  padding: 8px;
+  font-size: 16px;
+  margin-left: 8px;
 }
 
 .matrix {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  align-items: center;
+  gap: 4px;
 }
 
 .matrix-row {
   display: flex;
-  gap: 5px;
+  gap: 4px;
 }
 
-.matrix input {
-  width: 60px;
-  height: 40px;
+.matrix-input {
+  width: 45px;
+  height: 45px;
   text-align: center;
-  font-size: 16px;
+  font-size: 14px;
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .result-section {
-  padding: 20px;
-  background-color: #f5f5f5;
-  border-radius: 8px;
-  min-width: 200px;
+  width: 100%;
+  padding: 0 10px;
 }
 
-.determinant {
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
+.matrix-properties {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.property {
+  background: #f5f5f5;
+  padding: 12px;
+  border-radius: 8px;
+  word-break: break-word;
+}
+
+.property h3 {
+  margin: 0 0 8px 0;
+  font-size: 1rem;
+}
+
+.value {
+  font-size: 0.9rem;
+  overflow-wrap: break-word;
+}
+
+.theorem-note {
+  font-size: 0.8rem;
+  margin-top: 8px;
+  color: #666;
 }
 
 .eigenvalue-plot {
-  background: white;
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
 }
 
 .eigenvalue-plot h2 {
+  font-size: 1.1rem;
   margin-bottom: 1rem;
-  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 95%;
+  }
+
+  .matrix-input {
+    width: 40px;
+    height: 40px;
+    font-size: 13px;
+  }
+
+  .property {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app {
+    padding: 5px;
+  }
+
+  .container {
+    width: 98%;
+  }
+
+  .matrix-input {
+    width: 35px;
+    height: 35px;
+    font-size: 12px;
+    padding: 2px;
+  }
+
+  .size-selector select {
+    padding: 6px;
+    font-size: 14px;
+  }
+
+  .property {
+    padding: 8px;
+  }
+
+  .value {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .matrix-input {
+    width: 30px;
+    height: 30px;
+    font-size: 11px;
+  }
 } 

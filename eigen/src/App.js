@@ -80,6 +80,7 @@ function App() {
                     type="number"
                     value={cell}
                     onChange={(e) => handleCellChange(i, j, e.target.value)}
+                    className="matrix-input"
                   />
                 ))}
               </div>
@@ -114,32 +115,34 @@ function App() {
         <div className="eigenvalue-plot">
           <h2>Eigenvalues Plot</h2>
           <ScatterChart
-            width={400}
-            height={400}
-            margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
+            width={Math.min(350, window.innerWidth - 30)}
+            height={Math.min(350, window.innerWidth - 30)}
+            margin={{ top: 10, right: 10, bottom: 30, left: 30 }}
           >
-            <CartesianGrid />
-            <XAxis 
-              type="number" 
-              dataKey="x" 
-              name="Real" 
-              label={{ value: "Real Part", position: "bottom" }}
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis
+              type="number"
+              dataKey="x"
+              name="Real"
+              label={{ value: "Real", position: "bottom", offset: -20 }}
               domain={['auto', 'auto']}
+              tick={{ fontSize: 12 }}
             />
-            <YAxis 
-              type="number" 
-              dataKey="y" 
-              name="Imaginary" 
-              label={{ value: "Imaginary Part", angle: -90, position: "left" }}
+            <YAxis
+              type="number"
+              dataKey="y"
+              name="Imaginary"
+              label={{ value: "Imaginary", angle: -90, position: "left", offset: -20 }}
               domain={['auto', 'auto']}
+              tick={{ fontSize: 12 }}
             />
-            <Tooltip 
+            <Tooltip
               formatter={(value) => value.toFixed(3)}
               labelFormatter={() => 'Eigenvalue'}
             />
-            <Scatter 
-              name="Eigenvalues" 
-              data={calculateEigenvalues(matrix)} 
+            <Scatter
+              name="Eigenvalues"
+              data={calculateEigenvalues(matrix)}
               fill="#8884d8"
               shape="circle"
             />
