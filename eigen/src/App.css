@@ -1,0 +1,52 @@
+.app {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.matrix-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.size-selector {
+  margin-bottom: 10px;
+}
+
+.matrix {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.matrix-row {
+  display: flex;
+  gap: 5px;
+}
+
+.matrix input {
+  width: 60px;
+  height: 40px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.result-section {
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  min-width: 200px;
+}
+
+.determinant {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+} 
